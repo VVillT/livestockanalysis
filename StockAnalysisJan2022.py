@@ -1,6 +1,5 @@
 # This app is for educational purpose only. Insights gained is not financial advice. Use at your own risk!
 import streamlit as st
-#from PIL import Image
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,9 +9,6 @@ import datetime, csv, base64
 import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.graph_objects as go
-#---------------------------------#
-# New feature (make sure to upgrade your streamlit library)
-# pip install --upgrade streamlit
 
 #---------------------------------#
 # Page layout
@@ -57,10 +53,6 @@ ticket_input = "ROO.L"
 stockYFticker = col1.text_input("Enter Yahoo ticker here. For Example: ROO.L", ticket_input)
 riskfreevalue = 0 
 riskfree_input = col1.number_input("Select the % of risk free rate", value = riskfreevalue)
-#st.sidebar.write('Market risk-free rate is : ' , "{:.2%}".format(riskfree_input / 100)) 
-## Sidebar - Currency price unit
-#currency_price_unit = col1.selectbox('Select currency for price', ('USD', 'BTC', 'ETH'))
-
 
 def load_data(stockname):
     yahoo_financials = YahooFinancials(stockname)
@@ -79,7 +71,6 @@ def load_data(stockname):
     data.drop(columns=['index','date'], inplace = True)
     return data
 rawdata = load_data(stockYFticker)
-#st.dataframe(ftse100.sample(1))
 datastart = rawdata['formatted_date'].min()
 dataend = rawdata['formatted_date'].max()
 
@@ -92,13 +83,10 @@ def simpleifsloop(Stock):
         closing = Stock.iloc[abs(Stock['formatted_date'] - dt ).idxmin()+1]['close']   
         if dt >= inputdtstart:           
             st.write('If you bought the stock on ',dt.date(), ', you will buy on the price :    ',np.round(closing , decimals =2),' versus the latest date ',   Stock.iloc[-1]['formatted_date'].date(),'price :    ',np.round(Stock.iloc[-1]['close'], decimals =2) , ' | Return on investing would be ',np.round((Stock.iloc[-1]['close']/ closing-1)*100, decimals = 2) , '%  ')
-        #Stock['Daily Return'].hist(bins=100, title="Distribution of daily return")
 simpleifsloop(rawdata)
 
 @st.cache
 def getFTSE100():
-    #print('Getting data of UK key market from {} to {}'.format(startdate, enddate))
-    #print('Index we are getting are')
     ### Getting FTSE 100
     ftse100 = '^FTSE'
     yahoo_financials = YahooFinancials(ftse100)
@@ -117,8 +105,6 @@ def getFTSE100():
     return df  
 @st.cache 
 def getFTSE250():
-    #print('Getting data of UK key market from {} to {}'.format(startdate, enddate))
-    #print('Index we are getting are')
     ### Getting FTSE 100
     ftse250 = '^FTMC'
     yahoo_financials = YahooFinancials(ftse250)
@@ -170,8 +156,6 @@ st.sidebar.write('Std Daily Return: ',"{:.2%}".format(data['Daily Return'].std()
 
 # Plot Closing Price of Query Symbol
 def price_plot(data):
-  #df = pd.DataFrame(data[symbol].close)
-  #fig, ax = plt.subplots(figsize=(20,4))
     fig = px.line(title =  stockYFticker+' daily close interactive trend')  
     fig.add_scatter(x = data['formatted_date'], y = data['close'], name = stockYFticker)
     return st.plotly_chart(fig, use_container_width=True)
@@ -199,7 +183,6 @@ fig= plt.figure(figsize = (12,3))
 plt.grid()
 plt.scatter(CAPMdf['Daily Return_index'] ,CAPMdf['Daily Return_stock'] )
 plt.plot(CAPMdf['Daily Return_index'], beta * CAPMdf['Daily Return_index'] + alpha, "r--")
-#testdf.plot(kind = 'scatter', x = 'Daily Return_index', y = 'Daily Return_stock')
 st.pyplot(fig)
 
 #Beta Return: 
@@ -225,8 +208,7 @@ if alpha > 0:
 elif alpha < 0 :
     st.write('Alpha is',alpha, 'meaning it is under performing the benchmark index ftse250 by : ',"{:.2%}".format(alpha))    
 else: 
-    st.write('Alpha is',"{:.2%}".format(alpha), 'meaning it is returning about the same as the benchmark index ftse250.')    
-#st.write('Alpha is: ',"{:.2%}".format(alpha))   
+    st.write('Alpha is',"{:.2%}".format(alpha), 'meaning it is returning about the same as the benchmark index ftse250.')     
 #Expected Return 
 st.write('Stock CAPM Expected Return is: ',"{:.2%}".format(ER))   
 
