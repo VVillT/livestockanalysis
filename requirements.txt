@@ -1,0 +1,10 @@
+streamlit==1.2.0
+pandas==1.2.4
+matplotlib==3.2.2
+base58==2.1.1
+json5==0.9.5
+lxml==4.5.2
+numpy==1.19.5
+yahoofinancials==1.6
+yfinance==0.1.60
+plotly==4.12.0
