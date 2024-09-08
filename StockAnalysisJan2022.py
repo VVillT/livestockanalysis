@@ -125,7 +125,7 @@ ftse100 = getFTSE100()
 ftse100dt = ftse100.loc[(ftse100['formatted_date'] >= inputdtstart) & (ftse100['formatted_date'] <= inputdtend)]
 ftse250 = getFTSE250()
 ftse250dt = ftse250.loc[(ftse100['formatted_date'] >= inputdtstart) & (ftse250['formatted_date'] <= inputdtend)]
-data = rawdata.loc[(rawdata['formatted_date'] >= inputdtstart) & (rawdata['formatted_date'] <= inputdtend)]
+data = rawdata.loc[(rawdata['formatted_date'] >= inputdtst/art) & (rawdata['formatted_date'] <= inputdtend)]
 def CombineData(stockdf,indexdf,dtstart,dtend):
     stockdf = stockdf.loc[(stockdf['formatted_date'] >= dtstart) & (stockdf['formatted_date'] <= dtend)]
     df1 = stockdf[['formatted_date', 'Daily Return']]
@@ -165,16 +165,17 @@ price_plot(data)
 
 ticker = yf.Ticker(stockYFticker)
 with st.expander("Company Info"):
-    st.write('Business Intro:')
-    st.write(ticker.info['longBusinessSummary'])
-    st.write('Recommendations by Yahoo advisor:')
-    st.write(ticker.recommendations)
-    st.write('List of major holders:')
-    st.write(ticker.major_holders)
-    st.write('List of institutional holders:')
-    st.write(ticker.institutional_holders)
-    st.write('List of events on calendar:')
-    st.write(ticker.calendar)
+    #st.write('Business Intro:')
+    #st.write(ticker.info['longBusinessSummary'])
+    #st.write('Recommendations by Yahoo advisor:')
+    #st.write(ticker.recommendations)
+    #st.write('List of major holders:')
+    #st.write(ticker.major_holders)
+    #st.write('List of institutional holders:')
+    #st.write(ticker.institutional_holders)
+    #st.write('List of events on calendar:')
+    #st.write(ticker.calendar)
+    st.write('This Part of API borken- fixing in progress 09/2024 ')
 
 #CAPM Formula: ri = rf + Bi * (rm - rf)
 with st.expander("CAPM explain"):
