@@ -125,7 +125,7 @@ ftse100 = getFTSE100()
 ftse100dt = ftse100.loc[(ftse100['formatted_date'] >= inputdtstart) & (ftse100['formatted_date'] <= inputdtend)]
 ftse250 = getFTSE250()
 ftse250dt = ftse250.loc[(ftse100['formatted_date'] >= inputdtstart) & (ftse250['formatted_date'] <= inputdtend)]
-data = rawdata.loc[(rawdata['formatted_date'] >= inputdtst/art) & (rawdata['formatted_date'] <= inputdtend)]
+data = rawdata.loc[(rawdata['formatted_date'] >= inputdtstart) & (rawdata['formatted_date'] <= inputdtend)]
 def CombineData(stockdf,indexdf,dtstart,dtend):
     stockdf = stockdf.loc[(stockdf['formatted_date'] >= dtstart) & (stockdf['formatted_date'] <= dtend)]
     df1 = stockdf[['formatted_date', 'Daily Return']]
