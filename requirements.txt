@@ -1,6 +1,6 @@
 streamlit==1.2.0
 pandas==1.2.4
-matplotlib==3.2.2
+matplotlib
 base58==2.1.1
 json5==0.9.5
 lxml==4.5.2
