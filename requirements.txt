@@ -1,4 +1,4 @@
-streamlit==1.2.0
+streamlit
 pandas==1.2.4
 matplotlib
 base58==2.1.1
